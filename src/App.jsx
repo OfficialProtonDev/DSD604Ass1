@@ -4,11 +4,15 @@ import GetPlaceButton from './components/GetPlaceButton'
 import PlaceSelectList from './components/PlaceSelectList'
 import { maoriPlaceNamesData } from './assets/maoriPlaceNames.js'
 import AnswerList from './components/AnswerList.jsx'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function App() {
   const [englishPlace, setEnglishPlace] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [hint, setHint] = useState('');
+
+  const MySwal = withReactContent(Swal)
 
   const getPlace = () => {
     const randomIndex = Math.floor(Math.random() * maoriPlaceNamesData.length);
@@ -25,9 +29,21 @@ function App() {
     };
 
     if (answerInfo.isCorrect) {
-      alert('Correct!');
+      MySwal.fire({
+        title: 'Correct!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500,
+        heightAuto: false,
+      })
     } else {
-      alert('Wrong!');
+      MySwal.fire({
+        title: 'Wrong!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+        heightAuto: false,
+      })
     }
     setAnswers([...answers, answerInfo]);
     getPlace();

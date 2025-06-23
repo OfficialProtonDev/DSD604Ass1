@@ -2,17 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { createMaoriPlacenames } from '../assets/maoriPlaceNames.js';
 import Select from 'react-select';
 import { selectStyles, selectContainerStyle, buttonStyle } from './styles/selectStyles';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const PlaceSelectList = ({ onSelect }) => {
   const [selectData, setSelectData] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+  const MySwal = withReactContent(Swal)
     
   const checkAnswer = () => {
     if (selectedPlace) {
         onSelect(selectedPlace.value);
     }
     else {
-        alert('Please select a place');
+        MySwal.fire({
+            title: 'Please select a place',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+            heightAuto: false,
+        })
     }
   }
 
